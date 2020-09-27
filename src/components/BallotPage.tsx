@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { useCallback, useMemo, useState, useRef, useLayoutEffect } from "react";
+import React, { useCallback, useMemo, useState, useRef, useEffect } from "react";
 import {
   DivLabel,
   ElectionBallotMeta,
@@ -61,8 +61,8 @@ const BallotContent: React.FC<{ ballotId: number; onOpenSidebar?: () => void }> 
   const shownData = completeness.complete ? ballotData.data : null;
   const shownScope = (completeness.complete && ballotData.data?.scope) || scope;
 
-  useLayoutEffect(() => {
-    if (location.state.fromHeader && shownData?.electionNews && shownData.electionNews.length > 0) {
+  useEffect(() => {
+    if (location.state && location.state.fromHeader && shownData?.electionNews && shownData.electionNews.length > 0) {
       history.replace({ ...location, state: {} });
       newsFeedRef.current.scrollIntoView();
     }
